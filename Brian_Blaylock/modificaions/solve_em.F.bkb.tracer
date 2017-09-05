@@ -1,0 +1,84 @@
+
+! Brian Blaylock
+! 1 February 2016
+
+! Add continuous tracer to WRF (if you only change the tracer in the module_initilize_real
+! then you'll only get an initial "puff". This modificaiton keeps the plume going the entire run)
+! Added on line 265 after "ALLOCATE (max_horiz_cfl_tmp(grid%num_titles))
+
+!---------------------------------------------------------------
+!---------------- Brian Blaylock Continuous Tracers -----------
+!---------------------------------------------------------------
+IF ( config_flags%tracer_opt == 2 ) THEN
+    IF (grid%id == 2 ) THEN
+
+! South Plume
+    DO j = jds + 198, jds +  203, 1
+        DO i = ids + 225, ids + 240, 1
+            IF (ips .LE. i .and. ipe .GE. i .and. jps .LE. j .and. jpe .GE. j ) THEN
+                tracer(i,1,j,P_S_SLV) = 1.
+                tracer(i,2,j,P_S_SLV) = 1.
+                tracer(i,3,j,P_S_SLV) = 1.
+            END IF
+        END DO
+    END DO
+
+
+! North_ plume
+    DO j = jds + 220 , jds +  225, 1
+        DO i = ids + 215, ids + 230, 1
+            IF (ips .LE. i .and. ipe .GE. i .and. jps .LE. j .and. jpe .GE. j ) THEN
+                tracer(i,1,j,P_N_SLV) = 1.
+                tracer(i,2,j,P_N_SLV) = 1.
+                tracer(i,3,j,P_N_SLV) = 1.
+            END IF
+        END DO
+    END DO
+
+
+
+! 3x3 Plume box on at the GSL Buoy   
+    DO j = jds + 237 , jds +  239, 1
+        DO i = ids + 196, ids + 198, 1
+            IF (ips .LE. i .and. ipe .GE. i .and. jps .LE. j .and. jpe .GE. j ) THEN
+                tracer(i,1,j,P_BUOY) = 1.
+                tracer(i,2,j,P_BUOY) = 1.
+                tracer(i,3,j,P_BUOY) = 1.
+            END IF
+        END DO
+    END DO
+   
+   
+! Tracer plane over entire Great Salt Lake
+    DO j = jts, MIN(jde-1,jte)
+        DO i = its, MIN(ide-1,ite)
+            IF ( ( grid%xlat(i,j) .gt. 40.5 ) .and.     &
+                 ( grid%xlat(i,j) .lt. 41.8 ) .and.     &
+                 ( grid%xlong(i,j) .gt. -113.25 ) .and. &
+                 ( grid%xlong(i,j) .lt. -112.0 ) .and.  &
+                 ( grid%ivgtyp(i,j) .eq. 17 ) ) THEN
+                      tracer(i, 1, j, P_LAKE)  = 1.
+                      tracer(i, 2, j, P_LAKE)  = 1.
+                      tracer(i, 3, j, P_LAKE)  = 1.
+            END IF
+        END DO
+    END DO
+
+
+    END IF
+END IF
+!---------------------------------------------------------------------
+!---------------------------------------------------------------------
+
+! Hints for initlizing tracers at time after run begins (thanks to Sudheer Bhimireddy for testing this approach):
+! Use the grid%itimestep variable to add a conditon test whether or not to add a tracer.
+! From his email:
+!! I've created a new namelist variable (tracer_time) under &dynamics, which takes the number of time 
+!! steps as input. I modified the solve_em.F code as:
+!!! tracer_time = desired_spin-up_time(in seconds)/time_step(in seconds) specified in the namelist.input 
+!!! So, for a 6hr spin-up time and a 10sec time step my tracer_time = 2160
+!   IF ( grid%itimestep .GE. tracer_time ) THEN
+!      ! Release the tracers 
+!   END IF
+!! A big limitation is that the timestep has to be constant for this to work. I am writing another routine to make 
+!! it work for adaptive time step.
