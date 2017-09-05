@@ -1,111 +1,289 @@
+<!DOCTYPE html>
 <html>
-<!--Note: Make full screen background and banner images no larger than 1440 px wide and 72 dpi-->
 <head>
-<title>Utah WRF User Group</title>
-<link rel="stylesheet" href="./css/brian_style.css" />
-<script src="./js/site/siteopen.js"></script>
+  <title>Utah WRF User Group</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/606add7579.js"></script>
+  <style>
+  body {
+      font-family; 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+      font-size: 16px;
+      position: relative; 
+  }
 
-<style>
-  body {font-size: 16}
-</style>
+  .affix {
+      top:0;
+      width: 100%;
+      z-index: 9999 !important;
+  }
+  .navbar {
+      margin-bottom: 0px;
+  }
 
+  .affix ~ .container-fluid {
+     position: relative;
+     top: 50px;
+  }
+  #section0 {padding-top:0px;font-size: 16px;}
+  #section1 {padding-top:50px;height:300px;font-size: 16px; background-color: #c6e0f9;}
+  #section2 {padding-top:50px;height:300px;font-size: 16px;}
+  #section3 {padding-top:50px;height:300px;font-size: 16px; background-color: #c6e0f9;}
+  #section41 {padding-top:50px;height:300px;font-size: 16px;}
+  #section42 {padding-top:50px;height:300px;font-size: 16px;}
+  #section51 {padding-top:50px;height:300px;font-size: 16px; background-color: #c6e0f9;}
+  #section52 {padding-top:50px;height:300px;font-size: 16px; background-color: #c6e0f9;}
+  </style>
 </head>
-<body style='background:white'>
-<script src="./js/site/sitemenu.js"></script>	
-
-<img src='./images/uofu_snow_pan.png' width='100%' style="box-shadow: 0px 5px 35px grey">
-
-<div class='container'>
-
-
-<h1 align=center><strong><small>University of Utah</small><br>WRF User Group</strong></h1>
-<div class='well' >
-<p style='color:darkred; font-size:22;padding:0 0 0 0'>
-  The Weather Research and Forecast (WRF) model is the most widely
-  used numerical wether prediction system in the world. Our group
-  provides support for students and staff at the Unvierstiy of Utah
-  who run WRF simulations.
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <script src="js/site/CurrentTemp.js"></script>
+<div>
+    <img src='./images/uofu_snow_pan.png' width='100%'>
 </div>
 
-<div class="row" height="1000px">
-    
-    <div class="col-md-4">
-        <div class='well well-sm'>
-            <div style="height:300px">
-              <h3><i class="fa fa-calendar" aria-hidden="true"></i> Next Meeting</h3>
-              <address>
-              <strong>Date: </strong>September 11, 2017<br>
-              <strong>Time: </strong>3:00-4:00 PM<br>
-              <strong>Place: </strong>INSCC 445<br>
-              <strong>Presentor: </strong> Leah Cambpell<br>
-              <strong>Subject: </strong>"Introduction to WRF-Python" and "Compiling WRF in the new CHPC environment"
-              </address>
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197" style="box-shadow: 0px 5px 35px black">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="http://home.chpc.utah.edu/~u0553130/Ute_WRF/home.html">Ute WRF</a>
+    </div>
+    <div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="#section0">About Us</a></li>
+          <li><a href="#section1">Getting Started</a></li>
+          <li><a href="#section2">Compile WRF</a></li>
+          <li><a href="#section3">Code Modifcations</a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Post Processing <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#section41">Python</a></li>
+              <li><a href="#section42">NCL</a></li>
+            </ul>
+          </li> 
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Research <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#section51">Publications</a></li>
+              <li><a href="#section52">Presentations</a></li>
+            </ul>
+          </li>          
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>    
+
+
+<div id="section0" class="container">
+    <h1 align=center><strong><small>University of Utah</small><br>WRF User Group</strong></h1>
+    <div class='well' >
+    <p style='color:darkred; font-size:22px; padding:0 0 0 0'>
+      The Weather Research and Forecast (WRF) model is the most widely
+      used numerical wether prediction system in the world. Our group
+      provides support for students and staff at the Unvierstiy of Utah
+      who run WRF simulations.
+    </div>
+    <div class="row" height="1000px">
+        
+        <div class="col-md-4">
+            <div class='well well-sm'>
+                <div style="height:300px">
+                  <h3><i class="fa fa-calendar" aria-hidden="true"></i> Next Meeting</h3>
+                  <address>
+                  <strong>Date: </strong>September 11, 2017<br>
+                  <strong>Time: </strong>3:00-4:00 PM<br>
+                  <strong>Place: </strong>INSCC 445<br>
+                  <strong>Presentor: </strong> Leah Cambpell<br>
+                  <strong>Subject: </strong>"Introduction to WRF-Python" and "Compiling WRF in the new CHPC environment"
+                  </address>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class='well well-sm' style='min-height:100px'>  
-          <div style="height:300px">
-              <h2><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</h2>
-              <p>We share our code and content on GitHub: <a href="https://github.com/blaylockbk/Ute_WRF">Ute-WRF</a>
-              <p>Details on the following:
-                <ul>
-                  <li> Compiling
-                  <li> WRF Modifications
-                  <li> Post-Processing
-                </ul>
-          </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class='well well-sm'>
-            <div style="height:300px">
-              <h3><i class="fa fa-envelope" aria-hidden="true"></i> Contact Us</h3>
-                <p>Are you interested in joining our group or have a question?
-                  Let us know!
-                
-                  <form class="form-horizontal" action="https://formspree.io/brian.blaylock@utah.edu" method="POST">
-                    <div style="width:90%; margin-left:auto; margin-right:auto">
-                      <div class="form-group">
-                          <div class="input-group">                               
-                          <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                          <input required name="name" type="text" class="form-control" placeholder="First and last name">
-                          </div>
-                      </div>
-                      
-                      <div class="form-group">
-                          <div class="input-group">                               
-                          <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
-                          <input required name="email" type="email" class="form-control" placeholder="Email">
-                          </div>
-                      </div>
-                  
-                      <div class="form-group">
-                          <div class="input-group">
-                          <span class="input-group-addon"><i class="fa fa-comment fa-fw"></i></span>           
-                              <textarea required class="form-control" rows=2  type="text" name="description"  placeholder="Tell us a little about yourself and how we can help you."></textarea>
-                          </div>
-                      </div>
-
-                      <div class="form-group">        
-                        <div align=center>
-                          <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                      </div>
-                      <input type="hidden" name="_subject" value="WRF User Group Inquiry" />
-                    </div>
-                </form>
+    
+        <div class="col-md-4">
+            <div class='well well-sm' style='min-height:100px'>  
+              <div style="height:300px">
+                  <h2><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</h2>
+                  <p>We share our code and content on GitHub: <a href="https://github.com/blaylockbk/Ute_WRF">Ute-WRF</a>
+                  <p>Details on the following:
+                    <ul>
+                      <li> Compiling
+                      <li> WRF Modifications
+                      <li> Post-Processing
+                    </ul>
               </div>
+            </div>
         </div>
+    
+        <div class="col-md-4">
+            <div class='well well-sm'>
+                <div style="height:300px">
+                  <h3><i class="fa fa-envelope" aria-hidden="true"></i> Contact Us</h3>
+                    <p>Are you interested in joining our group or have a question?
+                      Let us know!
+                    
+                      <form class="form-horizontal" action="https://formspree.io/brian.blaylock@utah.edu" method="POST">
+                        <div style="width:90%; margin-left:auto; margin-right:auto">
+                          <div class="form-group">
+                              <div class="input-group">                               
+                              <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                              <input required name="name" type="text" class="form-control" placeholder="First and last name">
+                              </div>
+                          </div>
+                          
+                          <div class="form-group">
+                              <div class="input-group">                               
+                              <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+                              <input required name="email" type="email" class="form-control" placeholder="Email">
+                              </div>
+                          </div>
+                      
+                          <div class="form-group">
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-comment fa-fw"></i></span>           
+                                  <textarea required class="form-control" rows=2  type="text" name="description"  placeholder="Tell us a little about yourself and how we can help you."></textarea>
+                              </div>
+                          </div>
+    
+                          <div class="form-group">        
+                            <div align=center>
+                              <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                          </div>
+                          <input type="hidden" name="_subject" value="WRF User Group Inquiry" />
+                        </div>
+                    </form>
+                  </div>
+            </div>
+        </div>
+    
+    
     </div>
+</div>
+
+<div id="section1" class="container-fluid">
+    <div class='container'>
+    <h2>Getting started with WRF</h2>
+    <h4> Are you new to WRF?</h4>
+      <p>Go through this <a href="http://www2.mmm.ucar.edu/wrf/OnLineTutorial/">online tutorial</a>.
+      <p>More resources, specific to running <a href="http://home.chpc.utah.edu/~u0553130/Brian_Blaylock/wrf.html">WRF on CHPC</a>
+    </div>
+</div>
 
 
+<div id="section2" class="container-fluid">
+  <div class='container'>
+  <h2>Compiling WRF on CHPC</h2>
+  <h3>This is perhaps the most frustrating part of running WRF.</h3>
+  <p> Set up <a href="https://www.chpc.utah.edu/documentation/software/modules.php">modules</a> on your CHPC account.
+  <p>Look up the most recent custom.csh files for compiling on github
+  <hr>
+  <p>Having issues? Ask someone in the group or email <a href="mailto:issues@chpc.utah.edu">issues@chcp.utah.edu</a>
+  </div>
+</div>
+
+
+
+<div id="section3" class="container-fluid">
+  <div class='container'>
+  <h2>Code Modifications</h2>
+  <h3>So you want to control the weather. Well, here is go...</h3>
+  <ul>
+    <li><a href="http://home.chpc.utah.edu/~u0553130/Brian_Blaylock/hrrr.html">Initialize with HRRR  </a>
+        from the <a href="http://home.chpc.utah.edu/~u0553130/Brian_Blaylock/hrrr_FAQ.html">HRRR Archvie</a>
+    <li><a href="http://home.chpc.utah.edu/~u0553130/Brian_Blaylock/tracer.html">Tracer Plumes  </a>
+    <li><a href="http://home.chpc.utah.edu/~u0553130/Brian_Blaylock/lake_surgery.html">Lake Surgery  </a>
+  </ul>
+  </div>
+</div>
+
+
+
+<div id="section41" class="container-fluid">
+  <div class='container'>
+  <h2>Post Processing - Python</h2>
+  <p><a href="http://wrf-python.readthedocs.io/en/latest/">WRF-Python</a> 
+  <p> John Lawson <a href="https://github.com/johnrobertlawson/WEM">scripts</a>
+  </div>
+</div>
+
+
+
+<div id="section42" class="container-fluid">
+    <div class='container'>
+    <h2>Post Processing - NCL</h2>
+    <p><a href="http://www.ncl.ucar.edu/">NCAR Command Language</a>
+    </div>
+</div>
+  
+  
+  
+<div id="section51" class="container-fluid">
+  <div class='container'>
+  <h2>Research - Publications</h2>
+  <ul>
+    <li> Blaylock et al. 2017: Impact of Lake Breezes on Summer Ozone Concentrations in the Salt Lake Valley <a href='http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-16-0216.1'>Link</a>
+    <li> Alcott and Steenburgh 2013: Orographic Influences on a Great Salt Lake-Effect Snowstorm <a href="http://journals.ametsoc.org/doi/abs/10.1175/MWR-D-12-00328.1">Link</a>
+    <li> Crosman and Horel 2012: Idealized Large-Eddy Simulations of Sea and Lake Breezes: Sensitivity to Lake Diameter, Heat Flux and Stability <a href="https://link.springer.com/article/10.1007%2Fs10546-012-9721-x">Link</a>
+    <li> Lehner and Whiteman 2012: The Thermally Driven Cross-Basin Circulation in Idealized Basins under Varying Wind Conditions <a href="http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-11-0181.1">Link</a>
+  </ul>
 </div>
 </div>
 
+
+
+<div id="section52" class="container-fluid">
+  <div class='container'>  
+  <h2>Research - Presentations</h2>
+  <ul>
+      <li>
+      <li>
+    </ul>  
+  </div>
+</div>
+
+
+
+<script>
+$(document).ready(function(){
+  // Add scrollspy to <body>
+  $('body').scrollspy({target: ".navbar", offset: 50});   
+
+  // Add smooth scrolling on all links inside the navbar
+  $("#myNavbar a").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    }  // End if
+  });
+});
+</script>
+
+</body>
+</html>
+
+
+<br><br>
 <script src="./js/site/siteclose.js"></script>
-</div>
 </body>
 </html>

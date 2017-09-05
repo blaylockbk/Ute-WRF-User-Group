@@ -1,6 +1,6 @@
 document.write('\
 <br>\
-<div id="footer">\
+<div id="footer" style="border-top:1px solid black; margin-top:-10px">\
 <p style="text-align:center; font-family:Segoe UI">\
 This page is maintained by Brian Blaylock &copy 2017, \
  <a href="http://www.atmos.utah.edu/" style="color:#990000; text-decoration:none">Department of Atmospheric Science, University of Utah</a>. \

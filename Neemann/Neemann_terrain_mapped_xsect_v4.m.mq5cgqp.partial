@@ -1,0 +1,408 @@
+% Script to generate domain "terrain-mapped" cross section from WRF output
+% % Erik M Neemann
+% 18 April 2014
+
+clear all;
+close all;
+clc;
+
+% General Notes:
+% - This script plots the zonal wind component for a west-east cross section
+% in the Uintah Basin, UT
+% - Data is time-averaged from wrfout files at 6-hour intervals that
+% contain 6 times each (hourly data).  Total data in this example spans 145
+% hours from 0000 UTC 1 Feb to 0000 UTC 7 Feb 2013 (inclusive)
+% - Data is also spatially averaged along a customizable number of
+% gridpoints perpendicular to the centerline of the cross section in either
+% direction (originally 10 gridpoints on each side; width = 10).
+% - Depth of the cross section is also customizable (originally 25 model
+% levels).  If deeper than 6000 m, "totalheight" value will need to be modified
+% - Just insert start and end points for cross section (i,j) and the
+% program will calculate the equation for the line!
+% - ps2pdf function needed in matlab directory to create multi-page pdf
+% download from http://www.mathworks.com/matlabcentral/fileexchange/19516-ps2pdf
+
+%% Average U Wind Cross Sections
+
+% path to location of wrfout files
+% FULL Simulation -  Full Basin snow, modified Thompson microphysics
+path1 = '/uufs/chpc.utah.edu/common/home/horel-group2/eneemann/Uintah_Basin_Runs/WRFv3.5/Feb_2013_snow_TIN12IAU0T/wrfout_d03_2013-02';
+
+% Define an array with the times to include in the time average.
+% The format is ['-dd_hh:mm:ss';'-dd_hh:mm:ss';'-dd_hh:mm:ss'].  When the loop below
+% concatenates path and times it must result in a string that creates the full
+% path and filename of each wrfout file.
+% The loop below will read and manipulate a variable from the wrfout netcdf
+% at each time included in the array.
+times =  ['-01_00:00:00'; '-01_06:00:00'; '-01_12:00:00';...
+    '-01_18:00:00';...
+    '-02_00:00:00'; '-02_06:00:00'; '-02_12:00:00';...
+    '-02_18:00:00';...
+    '-03_00:00:00'; '-03_06:00:00'; '-03_12:00:00';...
+    '-03_18:00:00';...
+    '-04_00:00:00'; '-04_06:00:00'; '-04_12:00:00';...
+    '-04_18:00:00';...
+    '-05_00:00:00'; '-05_06:00:00'; '-05_12:00:00';...
+    '-05_18:00:00';...
+    '-06_00:00:00'; '-06_06:00:00'; '-06_12:00:00';...
+    '-06_18:00:00'; '-07_00:00:00'];
+
+% calculate # of wrfout files to loop through
+numtimes = length(times(:,1));
+
+% Loop through each time to load U wind data and create an array with
+% hourly data for all 145 hours
+% For my example, the last file only contains 1 hour of data.  So I
+% leavethat file out from this loop and simply place it in the final
+% position in the array after the loop.
+for i = 1:numtimes-1;
+           
+    % Generate complete data file path/filename for each wrfout file
+    string1 = [path1 times(i,:)]; 
+     
+    % ncread uses the strings from above to read a wrfout 3d array
+    % my wrfouts are set up to have 6 hours per file
+    % --> this adds a dimension to the array making it 4d
+    % since U is actually 4d it reads in (i_pts, j_pts, k_pts, hours)
+    
+    U = double(ncread(string1,'U'));
+    
+    % U is now 298x321x41x6 (i_pts, j_pts, k_pts, hours).
+    % We want to merge data into one large array that will be 298x321x41x145
+    % with a value for each grid point x 145 hours
+    
+    % calculate 4th dimension indicies for each file to be slotted into the
+    % correct position in the array with hourly data
+    z1 = (i-1)*6+1;     %first index
+    z2 = (i-1)*6+6;     %last index
+    % add the files' six 1-hour times into appropriate position, based on
+    % indicies calculated above
+    U_hrly_all(:,:,:,z1:z2) = U;
+
+end
+
+% now load last single hour to tack on end of array in last position
+    string1b = [path1 times(25,:)];  %string for last hour
+    Ub = double(ncread(string1b,'U'));
+    U_hrly_all(:,:,:,145) = Ub;
+   
+    
+% load PH & PHB: needed to calculate geopotential height later on...
+    PH = double(ncread(string1,'PH'));     % perturbation geopotential
+    PHB = double(ncread(string1,'PHB'));   % base state geopotential
+
+% take mean along 4th dimension to get time average for all 145 hours
+% data will be reduced to i_pts by j_pts by k_pts (298x321x41)
+U_tavg_all = mean(U_hrly_all,4);
+
+% load elevation to plot on domain in figure 1
+HGT = double(ncread(string1,'HGT'));
+HGT = HGT(:,:,1);  % only use 1st hour
+HGT_conts = [1000:250:3500];    % create contour intervals for plotting
+
+%% Create Cross Section - edit this block to change cross section start and end points, depth, and width
+% - Insert start and end points (a & b) of desired cross section
+% - Find (i,j) points from ncview, RIP, etc.
+% - Cross section is best as more east-west direction than north-south
+% --- To get a good north-south cross section, you'll need to make several modifications to the code
+
+% Point a (74,174) - must be westernmost point!
+i_pta = 74;
+j_pta = 174;
+
+% Point b (237,151) - must be easternmost point!
+i_ptb = 237;
+j_ptb = 151;
+
+%y = m*x + b, m is slope, b is yintercept
+slope = (j_ptb - j_pta)/(i_ptb - i_pta);
+yintercept = j_pta - slope*i_pta;
+
+% cut cross section at angle using following equation:
+x = 1:length(U(:,1,1,1));  % x is # of gridpoints in i direction
+% slope = -.1411
+% yintercept = 184.44
+y = slope*x + yintercept;          % centerline of cross section
+
+% Select cross section start/end in i direction gridpoints, depth in model
+% layers, and width in gridpoints
+crsa = i_pta;           % i gridpoint at start of xsection (point "a")
+crsb = i_ptb;           % i gridpoint at end of xsection (point "b")
+depth = 25;             % in model levels
+totalheight = 6000;     % in meters (enough to cover top model level height + terrain height
+width = 10;         % # of grid points on each side of centerline (perpendicular to xsection)
+% NOTE: to do a xsection that's only 1 gridpoint wide, set width = 0
+
+ystart = slope*x + yintercept - width;     %bottom of rectangle to be plotted on map as a check for location
+yend = slope*x + yintercept + width;       %top of rectangle to be plotted on map as a check for location
+
+%% Cut Cross Section through 3d domain
+
+% get PH & PHB data from 1st hour - this will be used for all hours
+PH_1hr = PH(:,:,:,1);
+PHB_1hr = PHB(:,:,:,1);
+
+% preallocate arrays of NaNs for data that will be taken along xsection
+% 2nd dimension is total width of xsection, 1 is added to include centerline
+U_tavg_angled = NaN(length(U(:,1,1,1)-1),(2*width+1),length(U(1,1,:,1)));
+PH_tavg_angled = NaN(length(PH_1hr(:,1,1,1)-1),length(PH_1hr(1,1,:,1)));
+PHB_tavg_angled = NaN(length(PHB_1hr(:,1,1,1)-1),length(PHB_1hr(1,1,:,1)));
+
+% pull data along xsection using equation from previous block
+% U data has width, so resulting array is 3d rectangle along xsection
+for X = crsa:crsb;
+    for Z = 1:length(U(1,1,:,1));
+        U_tavg_angled(X,:,Z) = U_tavg_all(X,(int64(slope*X + yintercept-width)):(int64(slope*X + yintercept+width)),Z);
+        % only centerline is used for PH/PHB in geopotential calculation,
+        % so resulting array is 2d rectangle
+        PH_tavg_angled(X,Z) = PH_1hr(X,(int64(slope*X + yintercept)),Z);
+        PHB_tavg_angled(X,Z) = PHB_1hr(X,(int64(slope*X + yintercept)),Z);
+    end
+end
+
+% take spatial average along the width of the xsection (2nd dimension)
+U_tavg_xavg_angled = mean(U_tavg_angled,2); % result is 2d array
+
+% trim down array to specified depth and gridpoints (crsa:crsb)
+% result is 2d array along xsection (i_pts by depth)
+U_tavg_trim_depth = U_tavg_xavg_angled(crsa:crsb,1:depth);
+% PH_tavg_trim = PH_tavg_angled(crsa:crsb,:);
+% PHB_tavg_trim = PHB_tavg_angled(crsa:crsb,:);
+
+%% Check that cross section is correct and build colormap
+
+% plot elevation data, xsection centerline and bounds used for gridpoint
+% averaging to make sure they are in the right location
+figure(1)
+contourf(HGT,HGT_conts);    % plot terrain in grayscale
+colormap(flipud(gray));
+hold on;
+plot(y(crsa:crsb),x(crsa:crsb),'r','LineWidth',3)       %plot xsection centerline
+plot(ystart(crsa:crsb),x(crsa:crsb),'r','LineWidth',1)  %plot bottom bound of spatial avg
+plot(yend(crsa:crsb),x(crsa:crsb),'r','LineWidth',1)    %plot top bound of spatial avg
+scatter(j_pta,i_pta,100,'b','fill')           %plot point a
+scatter(j_ptb,i_ptb,100,'b','fill')           %plot point b
+colorbar;
+set(gca,'view',[90 -90])    %rotate to view from correct orientation
+hold off;
+% make all text in the figure to size 12 and bold
+set(gca,'FontSize',12,'fontWeight','bold')
+set(findall(gcf,'type','text'),'FontSize',12,'fontWeight','bold')
+% set orientation of .ps output
+h=gcf;
+set(h,'PaperOrientation','landscape');
+set(h,'PaperUnits','normalized');
+set(h,'PaperPosition', [0 0 1 1]);
+print -dpsc2 -r600 input1;      %create .ps file
+
+%create blue to red colormap (only 19 divisions) for shading U winds
+blue_to_red = zeros(19,3);
+blue_to_red(1,:) = [0 0 1];     %blue
+blue_to_red(1:10,3) = 1;
+B1to49 = linspace(0,1,10)';     %fade to white (0 to 1)
+blue_to_red(1:10,1) = B1to49;   %apply to "red"
+blue_to_red(1:10,2) = B1to49;   %apply to "green"
+blue_to_red(10,:) = [1 1 1];    %white
+G51to99 = linspace(1,0,10)';    %fade from white (1 to 0)
+blue_to_red(10:19,2) = G51to99; %apply to "green"
+blue_to_red(10:19,3) = G51to99; %apply to "blue"
+blue_to_red(10:19,1) = 1;
+blue_to_red(19,:) = [1 0 0];    %red
+%end colormap creation
+
+%% Calculate correct geopotential height along xsection
+
+GEO_angled = PH_tavg_angled + PHB_tavg_angled;  % sum for total geopotential (at bottom of gridbox)
+
+Z = GEO_angled./9.81;   % height is geopotential divided by gravity (height at bottom of gridbox)
+
+% loop through data to calculate mid-model heights (where U variable lives) in meters
+Z_cor = NaN(size(Z));
+for n = 1:length(Z(:,1));
+    for z = 1:length(Z(1,:))-1;
+        Z_cor(n,z) = (Z(n,z) + Z(n,z+1))/2;
+    end
+end
+
+% trim down array to specified depth and gridpoints (crsa:crsb)
+Z_fix_trim_depth_m = Z_cor(crsa:crsb,1:depth);
+
+%% Map data to Terrain and Interpolate between model data
+% This is where things start to get complicated.  In order to map the data
+% to the terrain, we have to find the height at each gridpoint (X) and
+% each model level (Z).  Then we will plot this data to a very large array where
+% each vertical level represents 1 m.  The model data will only be plotted on
+% the level closest to it's actual height.  Example:  If the height of point
+% (100,7) in the xsection X-Z plane is 1651.3 m, it will only be plotted at
+% the point (100,1651) in our new array.  Then we loop thru the data and 
+% linearly interpolate between these data points for each vertical column
+% to fill in the gaps and complete the cross section
+
+% allocate array to map data to terrain, and fill it with NaNs
+terrain_mapped_tavg = NaN(crsb-crsa,totalheight);  % capping xsection at totalheight (in m) since I'm interested in lower atmosphere
+
+% create array with only data filled at model level heights and NaNs everywhere else
+for r = 1:length(U_tavg_trim_depth(:,1));       % step along xsection direction
+    for s = 1:length(U_tavg_trim_depth(1,:));   % step along vertical direction
+        % apply U value at (r,s) to (r,height(r,s)) in new array
+        terrain_mapped_tavg(r,int64((Z_fix_trim_depth_m(r,s)))) = U_tavg_trim_depth(r,s);
+    end
+end
+
+% create another array to hold "fixed" data after interpolation
+terrain_mapped_fix_tavg = terrain_mapped_tavg;
+
+%% Build placeholder array to aid interpolation
+
+% create "placeholder" array that will be used to help interpolation, fill
+% it with 0s and make depth "totalheight" meters
+placeholder = zeros(crsb-crsa,totalheight);
+
+placelow = 0;
+% loop for tavg
+for a = 1:length(terrain_mapped_tavg(:,1)); %step thru horizontal
+    for b = 1:length(terrain_mapped_tavg(1,:)); %step thru vertical
+        % 1st pass:
+        % if slot on model level filled, placelow becomes that model level (placeholder)
+        if isnan(terrain_mapped_tavg(a,b)) == 0 && placelow == 0;
+            placelow = b;
+            placeholder(a,b) = b;
+            continue % go to next step in for loop
+        else
+        end
+        % all subsequent passes:
+        % if model level is above placeholder and unfilled, nothing happens
+        if placelow ~= 0 && b > placelow && isnan(terrain_mapped_tavg(a,b)) == 1;
+        % if model level is filled (& above old placeholder), it becomes new placholder
+        else
+            placelow = b;
+            placeholder(a,b) = b;
+        end
+    end
+end
+% array is now filled with model height only at model height, rest is 0s
+placeholder(:,1) = 0;   % set lowest level to 0
+placeholder((crsb-crsa)+1,:) = 0;   % make last column 0
+
+% collapse placeholder array by removing 0s from each column
+placeholder_fix = zeros(crsb-crsa,depth);
+for a = 1:crsb-crsa;    %step horizontally
+    place_a = placeholder(a,:);     %grab column at point a
+    place_a(place_a==0)=[];         %remove 0s in column (make them blanks)
+    placeholder_fix(a,:) = place_a; %place collapsed column into the "fixed" array
+end
+
+%check to see if zeros removed from placeholder...they are!
+
+%% Linearly Interpolate in the vertical
+% given placeholder matrix exists without zeros, use to interpolate
+for a = 1:length(terrain_mapped_tavg(:,1))-1; %step thru horizontal
+    l = 1;
+for b = 1:length(terrain_mapped_tavg(1,:)); %step thru vertical
+    if l > (depth-1);
+        placehigh = totalheight;
+    else
+        placelow = placeholder_fix(a,l);
+        placehigh = placeholder_fix(a,l+1);
+    end
+    if b > 1 && isnan(terrain_mapped_tavg(a,b)) == 1 && b > placelow && b < placehigh;
+        % this code replaces the NaNs with interpolated values in between the
+        % model levels (when b is between placelow and placehigh)
+        terrain_mapped_fix_tavg(a,b) = ((b-placelow)/(placehigh-placelow))*(terrain_mapped_tavg(a,placehigh)) +...
+            (1 - ((b-placelow)/(placehigh-placelow)))*(terrain_mapped_tavg(a,placelow));
+    else if b > 1 && isnan(terrain_mapped_tavg(a,b)) == 0 && b > placelow;
+            l = l+1;    % raise placelow for next vertical step if b > placelow
+        else %retain values on model levels from original array
+            terrain_mapped_fix_tavg(a,b) = terrain_mapped_tavg(a,b);
+        end
+    end
+end
+end
+
+% loop back thru entire array...if 0s exist, replace with avg of cells above/below
+for a = 1:length(terrain_mapped_tavg(:,1))-1; %step thru horizontal
+for b = 1:length(terrain_mapped_tavg(1,:))-1; %step thru vertical
+    if b > placeholder_fix(a,1) && terrain_mapped_fix_tavg(a,b) == 0; %find 0s
+        %replace with avg of cells above/below
+        terrain_mapped_fix_tavg(a,b) = (terrain_mapped_fix_tavg(a,b-1)+terrain_mapped_fix_tavg(a,b+1))/2;
+    end
+end
+end
+
+%NaNs remain for all cells in the array that are below the model terrain
+
+%% Not sure if this is still needed with interpolation method...
+% Try Uncommenting the loop below, if you are getting errors at the top of your
+% plotted cross section and you can't figure our any other way to fix it
+
+% Pass through data array final time to place NaNs above last model level.
+% This prevents last model level data from getting stretched to top of
+% plot.  Shouldn't be needed, now that interpolation is used in place of
+% the original scheme which filled the last model level data upward to the
+% top of the array.
+
+% c = 0;
+% % loop for tavg
+% for a = 1:length(terrain_mapped_tavg(:,1)); %step thru horizontal
+%     for b = 1:length(terrain_mapped_tavg(1,:)); %step thru vertical
+%         if isnan(terrain_mapped_tavg(a,b)) == 0
+%             c = b; % c ends up being highest model level data
+%         else
+%         end
+%     end
+%     for b = 1:length(terrain_mapped_tavg(1,:)); %step thru vertical
+%         if b > (c+40); %more than 40 m above last model level data
+%             terrain_mapped_fix_tavg(a,b) = 0;  %NaN
+%         else
+%         end
+%     end
+% end
+
+%% Create Terrain Outline
+% create new array that will be used to outline terrain
+terrain = terrain_mapped_fix_tavg;
+
+%Loop through array, find NaNs below the the model terrain, and replace
+%them with -9999.  We'll later plot a contour at -50 that will outline the
+%terrain since all cells with real data are > -50 and all cells below model
+%terrain are < -50 because they will be -9999
+for i = 1:length(terrain(:,1)); %step thru horizontal
+    for j = 1:length(terrain(1,:)); %step thru vertical
+        if isnan(terrain(i,j)) == 1 %if cell is a NaN, replace with -9999
+            terrain(i,j) = -9999;
+        else
+            continue
+        end
+    end
+end
+tercont = [-50 -50];
+
+%% Plot Final Cross Section
+windconts = [-2 -1 -0.5 0 2 4 6 8];     % set contours for U wind speed
+xwidth = crsb-crsa;
+figure(2)
+colormap(blue_to_red);
+contourf(terrain_mapped_fix_tavg,100,'LineStyle','none');
+hold on;
+contour(terrain_mapped_fix_tavg,windconts,'k','LineWidth',1);
+axis([1400 3000 0 xwidth]);     % set vertical/horizontal data ranges
+colorbar;
+caxis([-5 5]);      % set constant colorbar range (must center on 0)
+contour(terrain,tercont,'k','LineWidth',2);     % thick contour of terrain outline
+set(gca,'view',[90 -90])    %rotate to view correct orientation
+title({'Time Averaged U-Wind Cross Section (m/s)','Full Snow'},'FontSize',12,'FontWeight','bold');
+xlabel('Height (m)','FontSize',12,'FontWeight','bold');
+ylabel('East-West Gridpoints','FontSize',12,'FontWeight','bold');
+% make all text in the figure to size 12 and bold
+set(gca,'FontSize',12,'fontWeight','bold')
+set(findall(gcf,'type','text'),'FontSize',12,'fontWeight','bold')
+% set orientation of .ps output
+h=gcf;
+set(h,'PaperOrientation','landscape');
+set(h,'PaperUnits','normalized');
+set(h,'PaperPosition', [0 0 1 1]);
+print -dpsc2 -r600 input1 -append;  %append to .ps file
+
+% use ps2pdf function to create multi-page pdf file from .ps file
+ps2pdf('psfile', 'input1.ps', 'pdffile', 'xsect_wind.pdf', 'gspapersize', 'letter', 'deletepsfile', 1);
+
