@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://use.fontawesome.com/606add7579.js"></script>
+  <script src="js/site/sorttable.js"></script>
   <style>
   body {
       font-family; 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
@@ -29,17 +30,17 @@
      top: 50px;
   }
   #section0 {padding-top:0px;font-size: 16px;}
-  #section1 {padding-top:50px;height:300px;font-size: 16px; background-color: #c6e0f9;}
-  #section2 {padding-top:50px;height:300px;font-size: 16px;}
-  #section3 {padding-top:50px;height:300px;font-size: 16px; background-color: #c6e0f9;}
-  #section41 {padding-top:50px;height:300px;font-size: 16px;}
-  #section42 {padding-top:50px;height:300px;font-size: 16px;}
-  #section51 {padding-top:50px;height:300px;font-size: 16px; background-color: #c6e0f9;}
-  #section52 {padding-top:50px;height:300px;font-size: 16px; background-color: #c6e0f9;}
+  #section1 {padding-top:50px;min-height:300px;font-size: 16px; background-color: lightgrey;}
+  #section2 {padding-top:50px;min-height:300px;font-size: 16px;}
+  #section3 {padding-top:50px;min-height:300px;font-size: 16px; background-color: lightgrey}
+  #section41 {padding-top:50px;min-height:300px;font-size: 16px;}
+  #section42 {padding-top:50px;min-height:300px;font-size: 16px;}
+  #section51 {padding-top:50px;min-height:300px;font-size: 16px; background-color: lightgrey}
+  #section52 {padding-top:50px;min-height:300px;font-size: 16px; background-color: lightgrey}
   </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-    <script src="js/site/CurrentTemp.js"></script>
+
 <div>
     <img src='./images/uofu_snow_pan.png' width='100%'>
 </div>
@@ -86,8 +87,8 @@
     <p style='color:darkred; font-size:22px; padding:0 0 0 0'>
       The Weather Research and Forecast (WRF) model is the most widely
       used numerical wether prediction system in the world. Our group
-      provides support for students and staff at the Unvierstiy of Utah
-      who run WRF simulations.
+      provides support for students and staff who run WRF simulations at
+      the Unvierstiy of Utah.
     </div>
     <div class="row" height="1000px">
         
@@ -179,6 +180,7 @@
 
 <div id="section2" class="container-fluid">
   <div class='container'>
+  <img src="./images/chpc.PNG" align=RIGHT style="width:350px">
   <h2>Compiling WRF on CHPC</h2>
   <h3>This is perhaps the most frustrating part of running WRF.</h3>
   <p> Set up <a href="https://www.chpc.utah.edu/documentation/software/modules.php">modules</a> on your CHPC account.
@@ -207,6 +209,7 @@
 
 <div id="section41" class="container-fluid">
   <div class='container'>
+  <img src='./images/python.png' align=right width=350px>
   <h2>Post Processing - Python</h2>
   <p><a href="http://wrf-python.readthedocs.io/en/latest/">WRF-Python</a> 
   <p> John Lawson <a href="https://github.com/johnrobertlawson/WEM">scripts</a>
@@ -217,6 +220,7 @@
 
 <div id="section42" class="container-fluid">
     <div class='container'>
+    <img src='./images/ncl.jpg' align=right width=350px>
     <h2>Post Processing - NCL</h2>
     <p><a href="http://www.ncl.ucar.edu/">NCAR Command Language</a>
     </div>
@@ -226,21 +230,47 @@
   
 <div id="section51" class="container-fluid">
   <div class='container'>
-  <h2>Research - Publications</h2>
-  <ul>
-    <li> Blaylock et al. 2017: Impact of Lake Breezes on Summer Ozone Concentrations in the Salt Lake Valley <a href='http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-16-0216.1'>Link</a>
-    <li> Alcott and Steenburgh 2013: Orographic Influences on a Great Salt Lake-Effect Snowstorm <a href="http://journals.ametsoc.org/doi/abs/10.1175/MWR-D-12-00328.1">Link</a>
-    <li> Crosman and Horel 2012: Idealized Large-Eddy Simulations of Sea and Lake Breezes: Sensitivity to Lake Diameter, Heat Flux and Stability <a href="https://link.springer.com/article/10.1007%2Fs10546-012-9721-x">Link</a>
-    <li> Lehner and Whiteman 2012: The Thermally Driven Cross-Basin Circulation in Idealized Basins under Varying Wind Conditions <a href="http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-11-0181.1">Link</a>
-  </ul>
-</div>
+  <h2>Research - Publications <i class="fa fa-book" aria-hidden="true"></i></h2>
+  <table class='table sortable alert' style="background-color:white;">
+    <tr>
+      <th>Author</th>
+      <th>Year</th>
+      <th>Title</th>
+      <th>Link</th>
+    </tr>
+    <tr>
+      <td> Blaylock et al.</td>
+      <td>2017</td>
+      <td>Impact of Lake Breezes on Summer Ozone Concentrations in the Salt Lake Valley</td>
+      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-16-0216.1'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+    </tr>
+    <tr>
+      <td> Alcott and Steenburgh</td>
+      <td>2013</td>
+      <td>Orographic Influences on a Great Salt Lake-Effect Snowstorm</td>
+      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/MWR-D-12-00328.1'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+    </tr>  
+    <tr>
+      <td>Crosman and Horel </td>
+      <td>2012</td>
+      <td>Idealized Large-Eddy Simulations of Sea and Lake Breezes: Sensitivity to Lake Diameter, Heat Flux and Stability</td>
+      <td><a href='https://link.springer.com/article/10.1007%2Fs10546-012-9721-x'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+    </tr>  
+    <tr>
+      <td>Lehner and Whiteman</td>
+      <td>2012</td>
+      <td>The Thermally Driven Cross-Basin Circulation in Idealized Basins under Varying Wind Conditions</td>
+      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-11-0181.1'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+    </tr>
+  </table>
+  </div>
 </div>
 
 
 
 <div id="section52" class="container-fluid">
   <div class='container'>  
-  <h2>Research - Presentations</h2>
+  <h2>Research - Presentations <i class="fa fa-slideshare" aria-hidden="true"></i></h2>
   <ul>
       <li>
       <li>
