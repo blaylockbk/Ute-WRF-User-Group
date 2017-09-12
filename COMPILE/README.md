@@ -1,9 +1,9 @@
 # Compile WRF the Successfull Way
-**Updated: September 13, 2017**  
-**Authors: Leah Campbell, Derek Mallia, Brian Blaylock**  
-**Computer: kingspeak.chpc.utah.edu**  
-**WRF Version 3.9.1.1**  
-**WPS Version 3.9.1**
+**Updated:** September 12, 2017  
+**Authors:** Leah Campbell, Derek Mallia, Brian Blaylock  
+**Computer:** kingspeak.chpc.utah.edu  
+**WRF Versions:** 3.9.1.1  
+**WPS Versions:** 3.9.1
 
 ## Load necessary modules and set up the environment
 
@@ -42,7 +42,7 @@ or for bash:
     # If you are using grib2 in WPS you need to set JASPER
 
 
-You must configure and compile **WRF** before you can compile **WPS** because metgrid and geogrid depend on the netcdf library created by WRF (or something like that).
+You must configure and compile **WRF** before you can compile **WPS** because metgrid and geogrid depend on a netcdf library created by WRF (or something like that).
 
 ## Configure WRF
 Change your directory to where your WRF source code is located and enter the `WRFV3` directory.  
@@ -103,5 +103,4 @@ ______
 If you get all that, **Congratulations**!! Now you can begin doing your WRF work.    
 -Sincerely, the [Unviersity of Utah WRF User Group](http://home.chpc.utah.edu/~u0553130/Ute_WRF/)
 
-
-
+P.S. Brian tested that these instructions successfully compile WRF and WPS, but he didn't run any of the executables. Please let him know if you are successful running all the executables after following these instructions.
