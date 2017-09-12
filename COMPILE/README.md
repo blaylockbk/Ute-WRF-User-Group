@@ -103,4 +103,4 @@ ______
 If you get all that, **Congratulations**!! Now you can begin doing your WRF work.    
 -Sincerely, the [Unviersity of Utah WRF User Group](http://home.chpc.utah.edu/~u0553130/Ute_WRF/)
 
-P.S. Brian tested that these instructions successfully compile WRF and WPS, but he didn't run any of the executables. Please let him know if you are successful running all the executables after following these instructions.
+P.S. Brian tested that these instructions successfully compile WRF and WPS, but he didn't run any of the executables. Please let him know if you successful run all the executables after following these instructions.
