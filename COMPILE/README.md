@@ -91,7 +91,11 @@ Now that you have a configure.wps file, you _don't_ need to run `./configure`.
 
 
 ## Compile WPS
-Type `./compile >& compile.log` to compile WPS and write the output to a log file. This shouldn't take longer than two or three minutes, but if it only takes a few seconds then it probably didn't work.
+Compile WPS and write the output to a log file. 
+
+    ./compile >& compile.log
+
+This shouldn't take longer than two or three minutes, but if it only takes a few seconds then it probably didn't work.
 
 Compiling should create three new executable files:
 1. `metgrid.exe`
