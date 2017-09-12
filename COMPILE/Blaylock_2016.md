@@ -1,5 +1,5 @@
-# Latest compile settings: _Sept-07-2017_
-### This should be in your `custom.csh` file
+# Blaylock's old compile settings: _2016_
+### The `custom.csh` file
 
     #!/bin/tcsh
 
