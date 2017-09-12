@@ -1,13 +1,25 @@
 * Note that you need to download the new GEOG files for geogrid.exe to work.
 
+Included Perl as some users don’t load this initially as its breaks some of the other programs on CHPC (reason is unknown…)
+-DVM 8/17/2017
+
+module load perl
 module load pgi
 module load mpich
 module load ncarg
 module load netcdf-c
 module load netcdf-f
+
+Set environment variables for tcsh:
 setenv NETCDF $NETCDFF
 setenv JASPERLIB /uufs/chpc.utah.edu/sys/installdir/jasper/1.900.1-atmos07102015/lib
 setenv JASPERINC /uufs/chpc.utah.edu/sys/installdir/jasper/1.900.1-atmos07102015/include
+
+or for bash:
+export NETCDF=$NETCDFF
+export JASPERLIB=/uufs/chpc.utah.edu/sys/installdir/jasper/1.900.1-atmos07102015/lib
+export JASPERINC=/uufs/chpc.utah.edu/sys/installdir/jasper/1.900.1-atmos07102015/include
+
 
 [u0528254@kingspeak32 WPS]$ ./configure
 Will use NETCDF in dir: /uufs/chpc.utah.edu/sys/installdir/netcdf-f/4.4.4p-c7
@@ -65,6 +77,13 @@ Configuration successful. To build the WPS, type: compile
 
 Now modify configure.wps to be like /uufs/chpc.utah.edu/common/home/u0101881/meteo/wrf/WPS/configure.wps.chpc
 (or just copy over from the path above or from WPS/configure.wps.martincuma_march9_2017)
+
+*Important note* If you do Copy Martin’s file, make sure you set WRF_DIR to the following:
+WRF_DIR			=	../WRFV3
+
+Martin was using a *non default* WRF location path, which causes geogrid and metgrid executables not to compile
+since they are dependent on WRF built netcdf libraries.
+
 
 In particular:
  - right path to WRF

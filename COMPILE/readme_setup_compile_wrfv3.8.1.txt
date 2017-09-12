@@ -3,17 +3,29 @@
 Compiling Workflow from March 7, 2017 (Kingspeak):
 #------------------------------------------------------------------------------------------
 
-1. Load modules and setenv commands
+1. Load modules and setenv commands. 
+Included Perl as some users don’t load this initially as its breaks some of the other programs on CHPC (reason is unknown…)
+-DVM 8/17/2017
 
+module load perl
 module load pgi/16.9
 module load mpich/3.2.p
 module load ncarg/6.1.2
 module load hdf5/1.8.17
 module load netcdf-c/4.4.1
 module load netcdf-f/4.4.4.p
+
+Set environment variables for tcsh:
 setenv NETCDF $NETCDFF
 setenv WRF_EM_CORE 1
 setenv WRFIO_NCD_LARGE_FILE_SUPPORT 1
+
+or for bash:
+export NETCDF=$NETCDFF
+export WRF_EM_CORE=1
+export WRFIO_NCD_LARGE_FILE_SUPPORT=1
+
+
 
 for WPS:
 see steenburgh-group2/leah/wrf/WPS/readme_setup_compile.txt
