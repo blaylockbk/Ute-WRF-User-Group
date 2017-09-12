@@ -1,4 +1,4 @@
-# Compile WRF the Successfull Way
+# Compile WRF the Successful Way
 **Updated:** September 12, 2017  
 **Authors:** Leah Campbell, Derek Mallia, Brian Blaylock  
 **Computer:** kingspeak.chpc.utah.edu  
@@ -7,9 +7,9 @@
 
 ## Load necessary modules and set up the environment
 
-First log into `kingspeak.chpc.utah.edu`
+First, log into `kingspeak.chpc.utah.edu`
 
-Let's start by disregaring all the settings in your current `~/.custom.csh` file:
+Let's start by disregarding all the settings in your current `~/.custom.csh` file:
     
     module purge
 
@@ -54,7 +54,7 @@ It's always smart to `./clean -a` if you have previously attempted to compile.
     1. `serial` will run the job on a single processor
     1. `smpar` uses shared memory (OpenMPI), utilizes multiprocessing
     1. `dmpar` uses distributed memory (MPI), utilizes multiprocessing
-    1. `dm+sm` uses distributed memory and shared memory, unitlizes multiprocessing
+    1. `dm+sm` uses distributed memory and shared memory, utilizes multiprocessing
 - Select option **1** for basic nesting
 
 You should get a message that says `Configuration successful!` followed by a list of settings used, which are in the newly created `configure.wrf` file.
@@ -70,7 +70,7 @@ Check that WRF compiled successfully.
 
     tail compile.log
 
-If WRF compiled successfully, you should see four new excecutables in the `main/` directory:
+If WRF compiled successfully, you should see four new executables in the `main/` directory:
 - `main/ndown.exe`
 - `main/real.exe`
 - `main/tc.exe`
@@ -83,7 +83,7 @@ Usually, you would run `./configure`, select option **7** for PGI with dmpar, an
 
 Instead, use a configure file created by Martin on March 9, 2017.
 
-Download the `configure.wps` file from this Github page or copy the file (from the path below) and put into the `WPS` directory you are in.
+Download the `configure.wps` file from this GitHub page or copy the file (from the path below) and put into the `WPS` directory you are in.
 
     cp /uufs/chpc.utah.edu/common/home/u0553130/public_html/Ute_WRF/COMPILE/configure.wps .
 
