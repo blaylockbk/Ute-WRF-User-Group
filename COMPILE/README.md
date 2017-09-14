@@ -23,7 +23,10 @@ Now we'll load the modules we need for WRF and WPS
     module load netcdf-c/4.4.1
     module load netcdf-f/4.4.4.p
 
-Set environment variables for tcsh:
+Set environment variables.  
+This depends on your shell. Not sure what shell you are using? Type `echo $SHELL` in your terminal.
+
+ Copy and paste these for _tcsh_:
 
     setenv NETCDF $NETCDFF
     setenv WRF_EM_CORE 1
@@ -33,7 +36,7 @@ Set environment variables for tcsh:
     setenv JASPERLIB /uufs/chpc.utah.edu/sys/installdir/jasper/1.900.1-atmos07102015/lib
     setenv JASPERINC  /uufs/chpc.utah.edu/sys/installdir/jasper/1.900.1-atmos07102015/include
 
-or for bash:
+or these for _bash_:
 
     export NETCDF=$NETCDFF
     export WRF_EM_CORE=1
@@ -106,7 +109,7 @@ Compiling should create three new executable files:
 
 
 ______
-If you get all that, **Congratulations**!! Now you can begin doing your WRF work.    
+If you get all that, **Congratulations**!! Now you can begin your WRF work.    
 -Sincerely, the [Unviersity of Utah WRF User Group](http://home.chpc.utah.edu/~u0553130/Ute_WRF/)
 
 P.S. Brian tested that these instructions successfully compile WRF and WPS, but he didn't run any of the executables. Please let him know if you successful run all the executables after following these instructions.
