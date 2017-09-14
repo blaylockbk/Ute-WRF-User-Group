@@ -39,7 +39,9 @@ or for bash:
     export WRF_EM_CORE=1
     export WRFIO_NCD_LARGE_FILE_SUPPORT=1
 
-    # If you are using grib2 in WPS you need to set JASPER
+    # JASPER Library required for grib2 processing in WPS
+    export JASPERLIB=/uufs/chpc.utah.edu/sys/installdir/jasper/1.900.1-atmos07102015/lib
+    export JASPERINC=/uufs/chpc.utah.edu/sys/installdir/jasper/1.900.1-atmos07102015/include
 
 
 You must configure and compile **WRF** before you can compile **WPS** because metgrid and geogrid depend on a netcdf library created by WRF (or something like that).
