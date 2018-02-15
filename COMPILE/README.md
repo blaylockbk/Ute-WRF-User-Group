@@ -1,9 +1,12 @@
 # Compile WRF the Successful Way
-**Updated:** September 12, 2017  
+**Updated:** February 2, 2018  
+**Tested by:** Derek Mallia
+
 **Authors:** Leah Campbell, Derek Mallia, Brian Blaylock  
 **Computer:** kingspeak.chpc.utah.edu  
 **WRF Versions:** 3.9.1.1  
 **WPS Versions:** 3.9.1
+
 
 ## Load necessary modules and set up the environment
 
@@ -16,7 +19,7 @@ Let's start by disregarding all the settings in your current `~/.custom.csh` fil
 Now we'll load the modules we need for WRF and WPS
     
     module load perl
-    module load pgi/16.9
+    module load pgi/17.4
     module load mpich/3.2.p
     module load ncarg/6.1.2
     module load hdf5/1.8.17
@@ -28,7 +31,7 @@ This depends on your shell. Not sure what shell you are using? Type `echo $SHELL
 
  Copy and paste these for _tcsh_:
 
-    setenv NETCDF $NETCDFF
+    setenv NETCDF /uufs/chpc.utah.edu/sys/installdir/netcdf/p-c7
     setenv WRF_EM_CORE 1
     setenv WRFIO_NCD_LARGE_FILE_SUPPORT 1
     
@@ -38,7 +41,7 @@ This depends on your shell. Not sure what shell you are using? Type `echo $SHELL
 
 or these for _bash_:
 
-    export NETCDF=$NETCDFF
+    export NETCDF=/uufs/chpc.utah.edu/sys/installdir/netcdf/p-c7
     export WRF_EM_CORE=1
     export WRFIO_NCD_LARGE_FILE_SUPPORT=1
 
