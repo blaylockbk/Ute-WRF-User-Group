@@ -1,7 +1,10 @@
 <center><img src='../images/kingspeak.jpg'></center>
 
 # Submitting WRF Jobs to Kingspeak
-Author: brian.blaylock@utah.edu
+Author: brian.blaylock@utah.edu  
+Updated: March 15, 2018
+
+----
 
 - [Kingspeak User Guide](https://www.chpc.utah.edu/documentation/guides/)
 - [SLURM](https://www.chpc.utah.edu/documentation/software/slurm.php)
