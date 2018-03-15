@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://use.fontawesome.com/606add7579.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   <script src="js/site/sorttable.js"></script>
   <style>
   body {
@@ -95,15 +95,13 @@
         <div class="col-md-4">
             <div class='well well-sm'>
                 <div style="height:300px">
-                  <h3><i class="fa fa-calendar" aria-hidden="true"></i> Next Meeting</h3>
+                  <h3><i class="fa fa-calendar"></i> Next Meeting</h3>
                   <address>
-                  <strong>Date: </strong>Tuesday, March 13, 2018<br>
-                  <strong>Time: </strong>2:00-3:00 PM<br>
+                  <strong>Date: </strong>Tuesday, May ??, 2018<br>
+                  <strong>Time: </strong>?:00-?:00 PM<br>
                   <strong>Place: </strong>INSCC 445<br>
                   <strong>Presenter: </strong> Derek Mallia<br>
                   <strong>Subject: </strong>Changing GSL water levels within WRF using bathymetry data.<br>
-                  <strong>Presenter: </strong> McKenna Stanford<br>
-                  <strong>Subject: </strong>Effects of a stochastic ice microphysics parameterization on simulations of deep convection.
                   </address>
                 </div>
             </div>
@@ -112,7 +110,7 @@
         <div class="col-md-4">
             <div class='well well-sm' style='min-height:100px'>  
               <div style="height:300px">
-                  <h2><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</h2>
+                  <h2><i class="fab fa-github-square"></i> GitHub</h2>
                   <center>
                     <p>We share our code and content on GitHub
                     <p><a type="button" class='btn btn-primary' href="https://github.com/blaylockbk/Ute-WRF-User-Group">Ute-WRF-User Group</a>
@@ -130,7 +128,7 @@
         <div class="col-md-4">
             <div class='well well-sm'>
                 <div style="height:300px">
-                  <h3><i class="fa fa-envelope" aria-hidden="true"></i> Contact Us</h3>
+                  <h3><i class="fa fa-envelope"></i> Contact Us</h3>
                     <p>Are you interested in joining our group or have a question?
                       Let us know!
                     
@@ -176,16 +174,16 @@
 <div id="section1" class="container-fluid">
     <div class='container'>
     <iframe align=RIGHT src='https://onedrive.live.com/embed?cid=633FADFF92D04BD2&resid=633FADFF92D04BD2%21330&authkey=AGlCu6RQ5__75Q0&em=2&wdAr=1.7777777777777776' width='350px' height='221px' frameborder='0'>This is an embedded <a target='_blank' href='https://office.com'>Microsoft Office</a> presentation, powered by <a target='_blank' href='https://office.com/webapps'>Office Online</a>.</iframe>
-    <h2><i class="fa fa-map-signs" aria-hidden="true"></i> Getting started with WRF</h2>
+    <h2><i class="fa fa-map-signs"></i> Getting started with WRF</h2>
     <h3> Are you new to WRF?</h3>
       <p>First, <a href="http://www2.mmm.ucar.edu/wrf/users/download/get_source.html">register as a new user and download the source code</a>.
       <p>Then, start with the <a href="http://www2.mmm.ucar.edu/wrf/OnLineTutorial/">UCAR online tutorial</a>.
       For specific details on running WRF in the CHPC environment, reference these <a href="http://home.chpc.utah.edu/~u0553130/Brian_Blaylock/wrf.html">tutorial slides</a>.
       <hr>  
-      <a class='btn btn-default' href="http://www2.mmm.ucar.edu/wrf/users/"> <i class="fa fa-fw fa-user" aria-hidden="true"></i> WRF Users</a>  
-      <a class='btn btn-default' href="http://www2.mmm.ucar.edu/wrf/users/download/get_source.html"> <i class="fa fa-fw fa-download" aria-hidden="true"></i> WRF Source Code</a>  
-      <a class='btn btn-default' href="http://www2.mmm.ucar.edu/wrf/users/docs/user_guide_V3/contents.html"> <i class="fa fa-fw fa-book" aria-hidden="true"></i> WRF User Guide</a>
-      <a class='btn btn-default' href="http://forum.wrfforum.com/"> <i class="fa fa-fw fa-users" aria-hidden="true"></i> WRF Forums</a>  
+      <a class='btn btn-default' href="http://www2.mmm.ucar.edu/wrf/users/"> <i class="fa fa-fw fa-user"></i> WRF Users</a>  
+      <a class='btn btn-default' href="http://www2.mmm.ucar.edu/wrf/users/download/get_source.html"> <i class="fa fa-fw fa-download"></i> WRF Source Code</a>  
+      <a class='btn btn-default' href="http://www2.mmm.ucar.edu/wrf/users/docs/user_guide_V3/contents.html"> <i class="fa fa-fw fa-book"></i> WRF User Guide</a>
+      <a class='btn btn-default' href="http://forum.wrfforum.com/"> <i class="fa fa-fw fa-users"></i> WRF Forums</a>        
       <hr>
     </div>
 </div>
@@ -194,12 +192,16 @@
 <div id="section2" class="container-fluid">
   <div class='container'>
   <img src="./images/chpc.PNG" align=RIGHT style="width:350px">
-  <h2><i class="fa fa-desktop" aria-hidden="true"></i> Compiling WRF on CHPC</h2>
-  <h3>This is perhaps the most frustrating part of using WRF</h3>
-  <p> First, make sure you understand how to use
+  <h2><i class="fa fa-desktop"></i> Running WRF at CHPC</h2>
+  <h4>Configure and Compile WRF</h4>
+  <p>This is perhaps the most frustrating part of using WRF.
+     First, make sure you understand how to use
       <a href="https://www.chpc.utah.edu/documentation/software/modules.php">modules</a>
       on your CHPC account. 
-   <p><a class='btn btn-lg btn-primary' href='https://github.com/blaylockbk/Ute-WRF-User-Group/tree/master/COMPILE'> <i class="fa fa-github" aria-hidden="true"></i> Compile Instructions</a>
+   <p><a class='btn btn-lg btn-primary' href='https://github.com/blaylockbk/Ute-WRF-User-Group/tree/master/COMPILE'> <i class="fab fa-github"></i> Compile Instructions</a>
+  <br><br>
+  <h4>Submit Jobs to Kingspeak</h4>
+  <a class='btn btn-lg btn-primary' href="https://github.com/blaylockbk/Ute-WRF-User-Group/tree/master/Kingspeak"> <i class="fa fa-fw fa-database"></i> WRF on Kingspeak</a>  
   <hr>
   <p> Still having issues? Ask someone in the group or email <a href="mailto:issues@chpc.utah.edu">issues@chcp.utah.edu</a> for help.
   </div>
@@ -210,7 +212,7 @@
 <div id="section3" class="container-fluid">
   <div class='container'>
   <img src='./images/code.PNG' align=RIGHT style='width:350px'>
-  <h2><i class="fa fa-code" aria-hidden="true"></i> Code Modifications</h2>
+  <h2><i class="fa fa-code"></i> Code Modifications</h2>
   <h3>So, you want to control the weather...we do that</h3>
   <p> Brian Blaylock
   <ul>
@@ -233,7 +235,7 @@
 <div id="section41" class="container-fluid">
   <div class='container'>
   <img src='./images/python.png' align=right height=100px>
-  <h2><i class="fa fa-code" aria-hidden="true"></i> Post Processing - Python</h2>
+  <h2><i class="fa fa-code"></i> Post Processing - Python</h2>
   <p><a href="http://wrf-python.readthedocs.io/en/latest/">WRF-Python</a> (need to set up your own python environment
      <a href='https://github.com/blaylockbk/Ute-WRF-User-Group/tree/master/Campbell/wrf-python-instructions'>Leah Campbell</a>) 
   <p> John Lawson <a href="https://github.com/johnrobertlawson/WEM">scripts</a>
@@ -245,7 +247,7 @@
 <div id="section42" class="container-fluid">
     <div class='container'>
     <img src='./images/ncl.jpg' align=right height=170px>
-    <h2><i class="fa fa-code" aria-hidden="true"></i> Post Processing - NCL</h2>
+    <h2><i class="fa fa-code"></i> Post Processing - NCL</h2>
     <p><a href="http://www.ncl.ucar.edu/">NCAR Command Language</a>
     </div>
 </div>
@@ -254,7 +256,7 @@
   
 <div id="section51" class="container-fluid">
   <div class='container'>
-  <h2><i class="fa fa-book" aria-hidden="true"></i> Research - Publications</h2>
+  <h2><i class="fa fa-book"></i> Research - Publications</h2>
   <table class='table sortable alert' style="background-color:white;">
     <tr>
       <th>Author</th>
@@ -266,32 +268,32 @@
       <td> Foster et al.</td>
       <td>2017</td>
       <td>Simulations of a Cold-Air Pool in Utah's Salt Lake Valley: Sensitivity to Land Use and Snow Cover</td>
-      <td><a href='https://link.springer.com/article/10.1007/s10546-017-0240-7'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+      <td><a href='https://link.springer.com/article/10.1007/s10546-017-0240-7'><i class="fas fa-external-link-alt"></i></a></td>
     </tr>
     <tr>
     <tr>
       <td> Blaylock et al.</td>
       <td>2017</td>
       <td>Impact of Lake Breezes on Summer Ozone Concentrations in the Salt Lake Valley</td>
-      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-16-0216.1'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-16-0216.1'><i class="fas fa-external-link-alt"></i></a></td>
     </tr>
     <tr>
       <td> Alcott and Steenburgh</td>
       <td>2013</td>
       <td>Orographic Influences on a Great Salt Lake-Effect Snowstorm</td>
-      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/MWR-D-12-00328.1'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/MWR-D-12-00328.1'><i class="fas fa-external-link-alt"></i></a></td>
     </tr>  
     <tr>
       <td>Crosman and Horel </td>
       <td>2012</td>
       <td>Idealized Large-Eddy Simulations of Sea and Lake Breezes: Sensitivity to Lake Diameter, Heat Flux and Stability</td>
-      <td><a href='https://link.springer.com/article/10.1007%2Fs10546-012-9721-x'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+      <td><a href='https://link.springer.com/article/10.1007%2Fs10546-012-9721-x'><i class="fas fa-external-link-alt"></i></a></td>
     </tr>  
     <tr>
       <td>Lehner and Whiteman</td>
       <td>2012</td>
       <td>The Thermally Driven Cross-Basin Circulation in Idealized Basins under Varying Wind Conditions</td>
-      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-11-0181.1'><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+      <td><a href='http://journals.ametsoc.org/doi/abs/10.1175/JAMC-D-11-0181.1'><i class="fas fa-external-link-alt"></i></a></td>
     </tr>
   </table>
   </div>
@@ -301,7 +303,7 @@
 
 <div id="section52" class="container-fluid">
   <div class='container'>  
-  <h2><i class="fa fa-slideshare" aria-hidden="true"></i> Research - Presentations</h2>
+  <h2><i class="fab fa-slideshare"></i> Research - Presentations</h2>
   <ul>
       <li>
       <li>
