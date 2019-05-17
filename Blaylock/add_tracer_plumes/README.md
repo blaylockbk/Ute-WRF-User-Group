@@ -10,5 +10,5 @@ Files to Modify:
 
 In the `namelist.input` file, you need to toggle the tracer function on in the `&dynamics` section. The follwoing sets the tracer option to "2" for the first and second domain.
 
-  &dynamics 
-  tracer_opt = 2, 2
+    &dynamics 
+    tracer_opt = 2, 2
