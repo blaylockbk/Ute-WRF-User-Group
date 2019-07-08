@@ -50,3 +50,6 @@ Param| Type |Level1|Level2| Name     |  Units   | Description                   
 #
 #  http://nomads.ncep.noaa.gov/pub/data/nccf/nonoperational/com/hrrr/prod/
 #  Currently no official HRRR analysis archive
+#
+# Get archived HRRR data from: http://hrrr.chpc.utah.edu/
+# Contact: brian.blaylock@utah.edu
