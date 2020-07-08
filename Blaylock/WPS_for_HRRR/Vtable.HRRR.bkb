@@ -23,15 +23,15 @@ Param| Type |Level1|Level2| Name     |  Units   | Description                   
   66 |   1  |   0  |      | SNOWH    | m        | Snow depth                              |  0  |  1  | 11  |   1 |
   11 |   1  |   0  |      | SKINTEMP | K        | Skin Temp ( = TSK )                     |  0  |  0  |  0  |   1 |
  223 |   1  |   0  |      | CANWAT   | kg m-2   | Plant Canopy Surface Water              |  2  |  0  | 196 |   1 |
- 144 | 111  |   0  |      | SOILM000 | fraction | Soil Moist   0 cm below ground          |  2  |  0  | 192 | 106 |
- 144 | 111  |   1  |      | SOILM001 | fraction | Soil Moist   1 cm below ground          |  2  |  0  | 192 | 106 |
- 144 | 111  |   4  |      | SOILM004 | fraction | Soil Moist   4 cm below ground          |  2  |  0  | 192 | 106 |
- 144 | 111  |  10  |      | SOILM010 | fraction | Soil Moist  10 cm below ground          |  2  |  0  | 192 | 106 |
- 144 | 111  |  30  |      | SOILM030 | fraction | Soil Moist  30 cm below ground          |  2  |  0  | 192 | 106 |
- 144 | 111  |  60  |      | SOILM060 | fraction | Soil Moist  60 cm below ground          |  2  |  0  | 192 | 106 |
- 144 | 111  | 100  |      | SOILM100 | fraction | Soil Moist 100 cm below ground          |  2  |  0  | 192 | 106 |
- 144 | 111  | 160  |      | SOILM160 | fraction | Soil Moist 160 cm below ground          |  2  |  0  | 192 | 106 |
- 144 | 111  | 300  |      | SOILM300 | fraction | Soil Moist 300 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  |   0  |      | SOILM000 | kg m-3   | Soil Moist   0 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  |   1  |      | SOILM001 | kg m-3   | Soil Moist   1 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  |   4  |      | SOILM004 | kg m-3   | Soil Moist   4 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  |  10  |      | SOILM010 | kg m-3   | Soil Moist  10 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  |  30  |      | SOILM030 | kg m-3   | Soil Moist  30 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  |  60  |      | SOILM060 | kg m-3   | Soil Moist  60 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  | 100  |      | SOILM100 | kg m-3   | Soil Moist 100 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  | 160  |      | SOILM160 | kg m-3   | Soil Moist 160 cm below ground          |  2  |  0  | 192 | 106 |
+ 192 | 111  | 300  |      | SOILM300 | kg m-3   | Soil Moist 300 cm below ground          |  2  |  0  | 192 | 106 |
   85 | 111  |   0  |      | SOILT000 | K        | Soil Temp    0 cm below ground          |  2  |  0  |  2  | 106 |
   85 | 111  |   1  |      | SOILT001 | K        | Soil Temp    1 cm below ground          |  2  |  0  |  2  | 106 |
   85 | 111  |   4  |      | SOILT004 | K        | Soil Temp    4 cm below ground          |  2  |  0  |  2  | 106 |
@@ -46,17 +46,16 @@ Param| Type |Level1|Level2| Name     |  Units   | Description                   
    7 |   1  |   0  |      | SOILHGT  | m        | Terrain field of source analysis        |  0  |  3  |  5  |   1 |
 -----+------+------+------+----------+----------+-----------------------------------------+-----------------------+
 #
-#  Vtable for High Resolution Rapid Refresh (HRRR) pressure-level `prs` data from the ncep server.
-#
-# Edited by Brian K. Blaylock, University of Utah, May 7, 2020
-# with some edits found Michael Walters <michael.s.walters@uconn.edu>
-#
-# **ONLY VALID FOR GRIB2 (not GRIB1)
-#
-#  http://nomads.ncep.noaa.gov/pub/data/nccf/nonoperational/com/hrrr/prod/
-#  Currently no official HRRR analysis archive
+# Vtable for High Resolution Rapid Refresh (HRRR) pressure-level `prs` data.
 #
 # Get archived HRRR data from: http://hrrr.chpc.utah.edu/
-# Contact: brian.blaylock@utah.edu
 #
-# Please contact Brian if you have an update for this Vtable.
+# Updated by Brian K. Blaylock on July 7, 2020
+# with some edits from Michael Walters <michael.s.walters@uconn.edu>
+# who based his VTable on https://github.com/openwfm/wrfxpy/blob/master/etc/vtables/Vtable.HRRR
+#
+# I haven't tested this VTable myself.
+# Please contact Brian if this VTable worked 
+# or if you have an update for this Vtable.
+#
+# Contact: blaylockbk@gmail.com
